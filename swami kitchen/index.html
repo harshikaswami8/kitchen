@@ -1,0 +1,157 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Swami's Kitchen</title>
+<link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&display=swap" rel="stylesheet">
+<script src="https://checkout.razorpay.com/v1/checkout.js"></script>
+<style>
+body{margin:0;font-family:'Roboto',sans-serif;background:#fff7ef;color:#333;}
+header{display:flex;align-items:center;justify-content:space-between;padding:10px 20px;background:#ff7a35;color:white;}
+header img{height:50px;margin-right:10px;}
+header nav a{color:white;margin-left:12px;text-decoration:none;font-weight:bold;}
+.hero{position:relative;text-align:center;}
+.hero img{width:100%;max-height:400px;object-fit:cover;}
+.hero h1{position:absolute;top:50%;left:50%;transform:translate(-50%,-50%);color:white;font-size:36px;font-weight:bold;text-shadow:2px 2px 5px #000;}
+.container{max-width:1200px;margin:20px auto;padding:10px;}
+.section-title{font-size:28px;margin-bottom:16px;text-align:center;}
+.grid{display:grid;gap:20px;}
+.menu-grid{grid-template-columns:repeat(auto-fit,minmax(250px,1fr));}
+.card{background:white;padding:12px;border-radius:12px;box-shadow:0 4px 12px rgba(0,0,0,0.1);text-align:center;}
+.card img{width:100%;border-radius:8px;margin-bottom:8px;}
+.btn{background:#ff7a35;color:white;border:none;padding:10px 16px;border-radius:8px;cursor:pointer;font-weight:bold;margin-top:8px;}
+footer{background:#21312b;color:white;text-align:center;padding:20px;margin-top:20px;}
+</style>
+</head>
+<body>
+
+<!-- Header -->
+<header>
+<div style="display:flex;align-items:center;">
+<img src="images/logo.png" alt="Swami's Kitchen">
+<div style="font-weight:bold;font-size:24px;">Swami's Kitchen</div>
+</div>
+<nav>
+<a href="#menu">Menu</a>
+<a href="#plans">Plans</a>
+<a href="#contact">Contact</a>
+</nav>
+</header>
+
+<!-- Hero Banner -->
+<div class="hero">
+<img src="images/banner.jpg" alt="Delicious Food">
+<h1>Welcome to Swami's Kitchen</h1>
+</div>
+
+<!-- Menu Section -->
+<div class="container" id="menu">
+<h2 class="section-title">Our Menu</h2>
+<div class="grid menu-grid">
+<div class="card">
+<img src="images/paneer.jpg" alt="Paneer Butter Masala">
+<h3>Paneer Butter Masala</h3>
+<p>Creamy paneer curry</p>
+<strong>₹139</strong><br>
+<button class="btn" onclick="orderNow('Paneer Butter Masala',139)">Order</button>
+</div>
+<div class="card">
+<img src="images/dosa.jpg" alt="Masala Dosa">
+<h3>Masala Dosa</h3>
+<p>Crispy dosa with potato</p>
+<strong>₹89</strong><br>
+<button class="btn" onclick="orderNow('Masala Dosa',89)">Order</button>
+</div>
+<div class="card">
+<img src="images/biryani.jpg" alt="Veg Biryani">
+<h3>Veg Biryani</h3>
+<p>Aromatic basmati rice</p>
+<strong>₹149</strong><br>
+<button class="btn" onclick="orderNow('Veg Biryani',149)">Order</button>
+</div>
+<div class="card">
+<img src="images/chole.jpg" alt="Chole Bhature">
+<h3>Chole Bhature</h3>
+<p>Fluffy bhature</p>
+<strong>₹119</strong><br>
+<button class="btn" onclick="orderNow('Chole Bhature',119)">Order</button>
+</div>
+<div class="card">
+<img src="images/idli.jpg" alt="Idli Sambar">
+<h3>Idli Sambar</h3>
+<p>Steamed idli with sambar</p>
+<strong>₹79</strong><br>
+<button class="btn" onclick="orderNow('Idli Sambar',79)">Order</button>
+</div>
+</div>
+</div>
+
+<!-- Subscription Plans -->
+<div class="container" id="plans">
+<h2 class="section-title">Subscription Plans</h2>
+<div class="grid menu-grid">
+<div class="card">
+<h3>Basic Plan</h3>
+<p>1 meal/day for 7 days</p>
+<strong>₹899</strong>
+<br><button class="btn" onclick="subscribe('Basic Plan',899)">Subscribe</button>
+</div>
+<div class="card">
+<h3>Standard Plan</h3>
+<p>2 meals/day for 7 days</p>
+<strong>₹1599</strong>
+<br><button class="btn" onclick="subscribe('Standard Plan',1599)">Subscribe</button>
+</div>
+<div class="card">
+<h3>Premium Plan</h3>
+<p>3 meals/day for 7 days</p>
+<strong>₹2199</strong>
+<br><button class="btn" onclick="subscribe('Premium Plan',2199)">Subscribe</button>
+</div>
+</div>
+</div>
+
+<!-- Contact Section -->
+<div class="container" id="contact">
+<h2 class="section-title">Contact Us</h2>
+<p style="text-align:center;">Email: swamibalaji382@gmail.com | Phone: 9972135820 | Shahapur</p>
+</div>
+
+<!-- Footer -->
+<footer>
+<p>&copy; 2025 Swami's Kitchen. All Rights Reserved.</p>
+</footer>
+
+<script>
+function orderNow(name,price){
+  var options = {
+    key: 'rzp_test_1DP5mmOlF5G5ag',
+    amount: price*100,
+    currency: 'INR',
+    name: "Swami's Kitchen",
+    description: name,
+    prefill: {name:'Customer', email:'customer@example.com', contact:'9972135820'},
+    theme: {color:'#ff7a35'}
+  };
+  var rzp = new Razorpay(options);
+  rzp.open();
+}
+
+function subscribe(plan,amount){
+  var options = {
+    key: 'rzp_test_1DP5mmOlF5G5ag',
+    amount: amount*100,
+    currency: 'INR',
+    name: "Swami's Kitchen",
+    description: plan,
+    prefill: {name:'Customer', email:'customer@example.com', contact:'9972135820'},
+    theme: {color:'#ff7a35'}
+  };
+  var rzp = new Razorpay(options);
+  rzp.open();
+}
+</script>
+
+</body>
+</html>
